@@ -43,7 +43,7 @@ class SendActivity : AppCompatActivity() {
             sendAddress.setText(intent.getStringExtra("address"), TextView.BufferType.EDITABLE)
 
         if (intent.getDoubleExtra("amount", -1.0) > 0)
-            setAmountUSD(intent.getDoubleExtra("amount", 0.0))
+            setAmountHush(intent.getDoubleExtra("amount", 0.0))
 
         if (intent.getBooleanExtra("includeReplyTo", false))
             chkIncludeReplyTo.isChecked = true
@@ -87,7 +87,7 @@ class SendActivity : AppCompatActivity() {
             }
         })
 
-        amountUSD.addTextChangedListener(object : TextWatcher {
+        amountHUSH.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
 
@@ -103,9 +103,9 @@ class SendActivity : AppCompatActivity() {
                 }
 
                 if (usd == null || zprice == null)
-                    amountHUSH.text = "${DataModel.mainResponseData?.tokenName} 0.0"
+                    amountUSD.text = "${DataModel.mainResponseData?.tokenName} 0.0"
                 else
-                    amountHUSH.text =
+                    amountUSD.text =
                         "${DataModel.mainResponseData?.tokenName} " + DecimalFormat("#.########").format(usd / zprice)
             }
         })
@@ -231,9 +231,9 @@ class SendActivity : AppCompatActivity() {
 
     private fun Double.format(digits: Int): String? = java.lang.String.format("%.${digits}f", this)
 
-    private fun setAmountUSD(amt: Double) {
-        amountUSD.setText(amt.format(2))
-        setAmount(amt / (DataModel.mainResponseData?.zecprice ?: 0.0))
+    private fun setAmountHush(amt: Double) {
+        amountHUSH.setText((amt / (DataModel.mainResponseData?.zecprice ?: 0.0)).toString())
+        setAmount(amt)
     }
 
     private fun setAmountHush(amt: Double?) {
@@ -244,10 +244,10 @@ class SendActivity : AppCompatActivity() {
         // Since there is a text-change listner on the USD field, we set the USD first, then override the
         // HUSH field manually.
         val zprice = DataModel.mainResponseData?.zecprice ?: 0.0
-        amountUSD.setText( (zprice * amt).format(2))
+        amountHUSH.setText("${DataModel.mainResponseData?.tokenName} " + DecimalFormat("#.########").format(amt))
 
-        amountHUSH.text =
-            "${DataModel.mainResponseData?.tokenName} " + DecimalFormat("#.########").format(amt)
+        amountUSD.text =
+            (zprice * amt).format(2)
     }
 
     private fun setAmount(amt: Double?) {
@@ -256,14 +256,14 @@ class SendActivity : AppCompatActivity() {
         if (amt == null) {
             txtSendCurrencySymbol.text = "" // Let the placeholder show the "$" sign
         } else {
-            txtSendCurrencySymbol.text = "$"
+            txtSendCurrencySymbol.text = "HUSH"
         }
 
         if (amt == null || zprice == null)
-            amountHUSH.text = "${DataModel.mainResponseData?.tokenName} 0.0"
+            amountUSD.text = "0.0"
         else
-            amountHUSH.text =
-                "${DataModel.mainResponseData?.tokenName} " + DecimalFormat("#.########").format(amt)
+            amountUSD.text =
+                    (zprice * amt).format(2)
 
     }
 
@@ -292,7 +292,7 @@ class SendActivity : AppCompatActivity() {
                         sendAddress.setText(data?.dataString ?: "", TextView.BufferType.EDITABLE)
                     }
 
-                    amountUSD.requestFocus()
+                    amountHUSH.requestFocus()
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
                 }

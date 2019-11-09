@@ -96,11 +96,11 @@
                 app:layout_constraintTop_toBottomOf="@id/toLayout">
 
                 <EditText
-                    android:id="@+id/amountUSD"
+                    android:id="@+id/amountHUSH"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="$ 0.00"
+                    android:hint="0.00"
                     android:inputType="numberDecimal"
                     android:maxLength="14"
                     android:selectAllOnFocus="true"
@@ -108,21 +108,22 @@
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
                     android:textSize="36sp"
-                    app:layout_constraintBottom_toTopOf="@+id/amountHUSH"
+                    app:layout_constraintBottom_toTopOf="@+id/amountUSD"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/amountHUSH"
+                    android:id="@+id/amountUSD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:text="HUSH 0.0"
+                    android:text="$ 0.0"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/amountUSD" />
+                    app:layout_constraintTop_toBottomOf="@+id/amountHUSH" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -140,10 +141,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
-                    android:text="$"
+                    android:text="HUSH"
                     android:textColor="#FFFFFF"
                     android:textSize="36sp"
-                    app:layout_constraintEnd_toStartOf="@+id/amountUSD"
+                    app:layout_constraintEnd_toStartOf="@+id/amountHUSH"
                     app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
             <android.support.constraint.ConstraintLayout
@@ -193,17 +194,21 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBaseline_toBaselineOf="@+id/txtSendMemoTitle"/>
             </android.support.constraint.ConstraintLayout>
+
             <Button
-                    android:text="Send"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                    android:id="@+id/btnSend"
-                    android:background="@color/colorAccent"
-                    android:textColor="@android:color/white" tools:layout_conversion_absoluteHeight="48dp"
-                    tools:layout_conversion_absoluteWidth="88dp"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintTop_toBottomOf="@+id/chkIncludeReplyTo" android:layout_marginTop="8dp"/>
+                android:id="@+id/btnSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorAccent"
+                android:text="Send"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chkIncludeReplyTo"
+                tools:layout_conversion_absoluteHeight="48dp"
+                tools:layout_conversion_absoluteWidth="88dp" />
             <CheckBox
                     android:text="Include ReplyTo Address"
                     android:layout_width="0dp"
